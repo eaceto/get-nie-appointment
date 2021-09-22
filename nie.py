@@ -48,7 +48,7 @@ def go_to_appointment_page(appointmentType):
 def go_to_conditions_page():
     click_button("btnEntrar")
 
-#inpiut basic info to ask for appointment
+#input basic info to ask for appointment
 def go_to_info_page(nie, name, country, expiry):
     fill_field("txtIdCitado", passport)
     fill_field("txtDesCitado", name)
