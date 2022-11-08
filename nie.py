@@ -16,21 +16,21 @@ def scroll():
 #click button after scrolling to bottom of page
 def click_button(btnid):
     scroll()
-    driver.find_element_by_id(btnid).click()
+    driver.find_element(By.ID, btnid).click()
 
 #select option from a drop down menu
 def select_option(menu_id, option):
-    select = Select(driver.find_element_by_id(menu_id))
+    select = Select(driver.find_element(By.ID, menu_id))
     select.select_by_visible_text(option)
 
 #fill a text field
 def fill_field(fld_id, text):
-    field = driver.find_element_by_id(fld_id)
+    field = driver.find_element(By.ID, fld_id)
     field.send_keys(text)
 
 #open the nie website
 def start():
-    driver.get("https://sede.administracionespublicas.gob.es/icpplustieb/index/")
+    driver.get("https://icp.administracionelectronica.gob.es/icpplustieb/index.html")
 
 #fill in and continue on the select city page
 def go_to_city_page(city):
@@ -40,7 +40,7 @@ def go_to_city_page(city):
 #choose the correct type of appointment for NIE page
 def go_to_appointment_page(appointmentType):
     scroll()
-    select_option("tramiteGrupo[0]", appointmentType)
+    select_option("tramiteGrupo[1]", appointmentType)
     click_button("btnAceptar")
 #could make this better
 
@@ -50,10 +50,9 @@ def go_to_conditions_page():
 
 #input basic info to ask for appointment
 def go_to_info_page(nie, name, country, expiry):
+    click_button("rdbTipoDocPas")
     fill_field("txtIdCitado", passport)
     fill_field("txtDesCitado", name)
-    select_option("txtPaisNac", country)
-    fill_field("txtAnnoCitado", expiry)
     click_button("btnEnviar")
 
 #ask for an appointment
@@ -63,7 +62,7 @@ def require_appointment():
 #Select second office because it could return a single preselcted office or multiple where you have to make a choice
 def go_to_office_page():
     try:
-        driver.find_element_by_id("idSede").send_keys(Keys.DOWN)
+        driver.find_element(By.ID, "idSede").send_keys(Keys.DOWN)
     except:
         pass
     click_button("btnSiguiente")
